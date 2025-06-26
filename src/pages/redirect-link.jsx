@@ -9,6 +9,7 @@ const RedirectLink = () => {
   const {id} = useParams();
 
   const {loading, data, fn} = useFetch(getLongUrl, id);
+  console.log(data)
 
   const {loading: loadingStats, fn: fnStats} = useFetch(storeClicks, {
     id: data?.id,

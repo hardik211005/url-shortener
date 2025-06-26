@@ -10,6 +10,7 @@ import {Copy, Download, LinkIcon, Trash} from "lucide-react";
 import {useEffect} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import {BarLoader, BeatLoader} from "react-spinners";
+import RedirectLink from "./redirect-link";
 
 const LinkPage = () => {
   const downloadImage = () => {
@@ -39,12 +40,13 @@ const LinkPage = () => {
     fn,
     error,
   } = useFetch(getUrl, {id, user_id: user?.id});
-
+  console.log(url);
   const {
     loading: loadingStats,
     data: stats,
     fn: fnStats,
   } = useFetch(getClicksForUrl, id);
+  console.log(stats)
 
   const {loading: loadingDelete, fn: fnDelete} = useFetch(deleteUrl, id);
 
@@ -76,11 +78,12 @@ const LinkPage = () => {
             {url?.title}
           </span>
           <a
-            href={`https://trimrr.in/${link}`}
+            href={`https://urlshortener-topaz.vercel.app/${link}`}
             target="_blank"
             className="text-3xl sm:text-4xl text-blue-400 font-bold hover:underline cursor-pointer"
+            onClick={() => (<RedirectLink />)}
           >
-            https://trimrr.in/{link}
+            https://urlshortener-topaz.vercel.app/{link}
           </a>
           <a
             href={url?.original_url}
@@ -97,7 +100,7 @@ const LinkPage = () => {
             <Button
               variant="ghost"
               onClick={() =>
-                navigator.clipboard.writeText(`https://trimrr.in/${link}`)
+                navigator.clipboard.writeText(`https://urlshortener-topaz.vercel.app/${link}`)
               }
             >
               <Copy />

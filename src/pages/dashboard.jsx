@@ -1,5 +1,3 @@
-// can add sonner from shadcn ui after link created
-
 import {useEffect, useState} from "react";
 import {BarLoader} from "react-spinners";
 import {Filter} from "lucide-react";
@@ -16,10 +14,12 @@ import {getUrls} from "@/db/apiUrls";
 import {getClicksForUrls} from "@/db/apiClicks";
 import {UrlState} from "@/context";
 
+
 const Dashboard = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const {user} = UrlState();
   const {loading, error, data: urls, fn: fnUrls} = useFetch(getUrls, user.id);
+  console.log(urls)
   const {
     loading: loadingClicks,
     data: clicks,
@@ -28,13 +28,14 @@ const Dashboard = () => {
     getClicksForUrls,
     urls?.map((url) => url.id)
   );
+  console.log(clicks)
 
   useEffect(() => {
     fnUrls();
   }, []);
 
   const filteredUrls = urls?.filter((url) =>
-    url.title.toLowerCase().includes(searchQuery.toLowerCase())
+    url.Title.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   useEffect(() => {

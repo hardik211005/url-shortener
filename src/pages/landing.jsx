@@ -39,10 +39,10 @@ const LandingPage = () => {
         </Button>
       </form>
       <img
-        src="/banner1.jpg" // replace with 2 in small screens
+        src="/front.jpeg" // replace with 2 in small screens
         className="w-full my-11 md:px-11"
       />
-      <Accordion type="multiple" collapsible className="w-full md:px-11">
+      <Accordion type="multiple" collapsible className="w-full md:px-11 text-white">
         <AccordionItem value="item-1">
           <AccordionTrigger>
             How does the Trimrr URL shortener works?

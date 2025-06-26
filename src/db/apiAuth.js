@@ -11,12 +11,12 @@ export async function login({email, password}) {
   return data;
 }
 
-export async function signup({name, email, password, profile_pic}) {
+export async function signup({name, email, password, profilepic}) {
   const fileName = `dp-${name.split(" ").join("-")}-${Math.random()}`;
 
   const {error: storageError} = await supabase.storage
-    .from("profile_pic")
-    .upload(fileName, profile_pic);
+    .from("profilepic")
+    .upload(fileName, profilepic);
 
   if (storageError) throw new Error(storageError.message);
 
@@ -26,7 +26,7 @@ export async function signup({name, email, password, profile_pic}) {
     options: {
       data: {
         name,
-        profile_pic: `${supabaseUrl}/storage/v1/object/public/profile_pic/${fileName}`,
+        profilepic: `${supabaseUrl}/storage/v1/object/public/profilepic/${fileName}`,
       },
     },
   });

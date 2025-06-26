@@ -14,9 +14,9 @@ import supabase from "./supabase";
 
 export async function getClicksForUrls(urlIds) {
   const {data, error} = await supabase
-    .from("clicks")
+    .from("Clicks")
     .select("*")
-    .in("url_id", urlIds);
+    .in("Url_id", urlIds);
 
   if (error) {
     console.error("Error fetching clicks:", error);
@@ -28,9 +28,9 @@ export async function getClicksForUrls(urlIds) {
 
 export async function getClicksForUrl(url_id) {
   const {data, error} = await supabase
-    .from("clicks")
+    .from("Clicks")
     .select("*")
-    .eq("url_id", url_id);
+    .eq("Url_id", url_id);
 
   if (error) {
     console.error(error);
@@ -51,11 +51,11 @@ export const storeClicks = async ({id, originalUrl}) => {
     const {city, country_name: country} = await response.json();
 
     // Record the click
-    await supabase.from("clicks").insert({
-      url_id: id,
-      city: city,
-      country: country,
-      device: device,
+    await supabase.from("Clicks").insert({
+      Url_id: id,
+      City: city,
+      Country: country,
+      Device: device,
     });
 
     // Redirect to the original URL

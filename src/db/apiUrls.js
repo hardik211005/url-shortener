@@ -2,9 +2,9 @@ import supabase, {supabaseUrl} from "./supabase";
 
 export async function getUrls(user_id) {
   let {data, error} = await supabase
-    .from("urls")
+    .from("Urls")
     .select("*")
-    .eq("user_id", user_id);
+    .eq("User_id", user_id);
 
   if (error) {
     console.error(error);
@@ -16,10 +16,10 @@ export async function getUrls(user_id) {
 
 export async function getUrl({id, user_id}) {
   const {data, error} = await supabase
-    .from("urls")
+    .from("Urls")
     .select("*")
     .eq("id", id)
-    .eq("user_id", user_id)
+    .eq("User_id", user_id)
     .single();
 
   if (error) {
@@ -32,9 +32,9 @@ export async function getUrl({id, user_id}) {
 
 export async function getLongUrl(id) {
   let {data: shortLinkData, error: shortLinkError} = await supabase
-    .from("urls")
-    .select("id, original_url")
-    .or(`short_url.eq.${id},custom_url.eq.${id}`)
+    .from("Urls")
+    .select("id, Original_Url")
+    .or(`Short_Url.eq.${id},Custom_Url.eq.${id}`)
     .single();
 
   if (shortLinkError && shortLinkError.code !== "PGRST116") {
@@ -58,15 +58,15 @@ export async function createUrl({title, longUrl, customUrl, user_id}, qrcode) {
   const qr = `${supabaseUrl}/storage/v1/object/public/qrs/${fileName}`;
 
   const {data, error} = await supabase
-    .from("urls")
+    .from("Urls")
     .insert([
       {
-        title,
-        user_id,
-        original_url: longUrl,
-        custom_url: customUrl || null,
-        short_url,
-        qr,
+        Title: title,
+        User_id: user_id,
+        Original_Url: longUrl,
+        Custom_Url: customUrl || null,
+        Short_Url: short_url,
+        Qr:qr,
       },
     ])
     .select();
@@ -80,7 +80,7 @@ export async function createUrl({title, longUrl, customUrl, user_id}, qrcode) {
 }
 
 export async function deleteUrl(id) {
-  const {data, error} = await supabase.from("urls").delete().eq("id", id);
+  const {data, error} = await supabase.from("Urls").delete().eq("id", id);
 
   if (error) {
     console.error(error);
